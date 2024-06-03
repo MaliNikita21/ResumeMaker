@@ -1,5 +1,6 @@
 package com.technoSignia.resumeMaker.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -31,14 +32,22 @@ public class Security_Config {
 		return new BCryptPasswordEncoder();
 	}
 
+//	@Bean
+//	 SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//		http.authorizeHttpRequests(
+//				(authorize) -> authorize.requestMatchers("/login").permitAll().anyRequest().authenticated()).csrf((csrf) -> csrf
+//		                .ignoringRequestMatchers("/*"))
+//		                .httpBasic(Customizer.withDefaults()).formLogin(Customizer.withDefaults());
+//
+//		return http.build();
+//	}
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
-				(authorize) -> authorize.requestMatchers("/login").permitAll().anyRequest().authenticated()).csrf((csrf) -> csrf
-		                .ignoringRequestMatchers("/*"))
+				(authorize) -> authorize.requestMatchers("/login").permitAll().anyRequest().authenticated()).csrf(csrf -> csrf.disable())
 		                .httpBasic(Customizer.withDefaults()).formLogin(Customizer.withDefaults());
 
 		return http.build();
 	}
-
 }
